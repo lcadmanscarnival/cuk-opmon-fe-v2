@@ -80,10 +80,17 @@ export const Icons = {
 				<path d='m21 21-4.3-4.3' />
 			</svg>
 		)
-	}
-}
+	},
+	info: props => {
+		return (
+			<svg xmlns='http://www.w3.org/2000/svg' width={24} height={24} viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth={2} strokeLinecap='round' strokeLinejoin='round' className='lucide lucide-info' {...props}>
+				<circle cx={12} cy={12} r={10} />
+				<path d='M12 16v-4' />
+				<path d='M12 8h.01' />
+			</svg>
+		)
+	},
 
-export const NavIcons = {
 	layers: props => {
 		return (
 			<svg xmlns='http://www.w3.org/2000/svg' width='17.05' height='16.658' viewBox='0 0 17.05 16.658' {...props}>
@@ -127,7 +134,7 @@ export const NavIcons = {
 			</svg>
 		)
 	},
-	fingerpring: props => {
+	fingerprint: props => {
 		return (
 			<svg xmlns='http://www.w3.org/2000/svg' width='16.556' height='16.891' viewBox='0 0 16.556 16.891' {...props}>
 				<g id='Group_73' data-name='Group 73' transform='translate(-1.25 -1.14)'>
@@ -144,17 +151,17 @@ export const NavIcons = {
 			</svg>
 		)
 	}
-
-	// waves: props => {
-	// 	return (
-	// 		<svg xmlns='http://www.w3.org/2000/svg' width='11.135' height='16.7' viewBox='0 0 11.135 16.7' {...props}>
-	// 			<g id='Group_77' data-name='Group 77' transform='translate(-5.147 -1.15)'>
-	// 				<path id='Path_582' data-name='Path 582' d='M6,8.32a5.422,5.422,0,0,1,0,5.371' transform='translate(0 -1.505)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
-	// 				<path id='Path_583' data-name='Path 583' d='M9.46,6.21a9.37,9.37,0,0,1,0,8.856' transform='translate(-0.935 -1.138)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
-	// 				<path id='Path_584' data-name='Path 584' d='M12.91,4.1a12.386,12.386,0,0,1,.007,11.935' transform='translate(-1.867 -0.568)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
-	// 				<path id='Path_585' data-name='Path 585' d='M16.37,2a15.485,15.485,0,0,1,0,15' transform='translate(-2.803 0)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
-	// 			</g>
-	// 		</svg>
-	// 	)
-	// }
 }
+
+// waves: props => {
+// 	return (
+// 		<svg xmlns='http://www.w3.org/2000/svg' width='11.135' height='16.7' viewBox='0 0 11.135 16.7' {...props}>
+// 			<g id='Group_77' data-name='Group 77' transform='translate(-5.147 -1.15)'>
+// 				<path id='Path_582' data-name='Path 582' d='M6,8.32a5.422,5.422,0,0,1,0,5.371' transform='translate(0 -1.505)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
+// 				<path id='Path_583' data-name='Path 583' d='M9.46,6.21a9.37,9.37,0,0,1,0,8.856' transform='translate(-0.935 -1.138)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
+// 				<path id='Path_584' data-name='Path 584' d='M12.91,4.1a12.386,12.386,0,0,1,.007,11.935' transform='translate(-1.867 -0.568)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
+// 				<path id='Path_585' data-name='Path 585' d='M16.37,2a15.485,15.485,0,0,1,0,15' transform='translate(-2.803 0)' fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.25' />
+// 			</g>
+// 		</svg>
+// 	)
+// }

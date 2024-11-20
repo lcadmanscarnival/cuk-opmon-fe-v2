@@ -1,5 +1,6 @@
 // import type { Metadata } from 'next'
 import { ThemeProvider } from 'providers/theme-provider'
+import { Providers } from 'providers'
 
 import localFont from 'next/font/local'
 import '../styles/globals.css'
@@ -22,9 +23,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<html lang='en' suppressHydrationWarning class='light'>
+		<html lang='en' suppressHydrationWarning className='light'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<ThemeProvider>{children}</ThemeProvider>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)

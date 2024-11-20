@@ -70,3 +70,12 @@ body {
 		@apply bg-background text-foreground;
 	}
 }
+
+.searchbar-results {
+	height: 0;
+	overflow: hidden;
+	transition: height 0.4s cubic-bezier(0.22, 0.68, 0, 1);
+}
+.searchbar-results.active {
+	height: calc-size(auto, size);
+}
