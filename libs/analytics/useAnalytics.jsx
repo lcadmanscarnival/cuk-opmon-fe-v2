@@ -1,11 +1,18 @@
 import { useContext } from 'react'
-import AnalyticsContext from './AnalyticsContext'
+import AnalyticsContext from './analytics-context'
 
-// Hook to use the analytics context
 export const useAnalytics = () => {
-	const context = useContext(AnalyticsContext)
-	if (!context) {
-		throw new Error('useAnalytics must be used within an AnalyticsProvider')
-	}
-	return context
+	return useContext(AnalyticsContext)
+}
+
+export const useTrack = () => {
+	return useContext(AnalyticsContext).track
+}
+
+export const usePage = () => {
+	return useContext(AnalyticsContext).page
+}
+
+export const useIdentify = () => {
+	return useContext(AnalyticsContext).identify
 }

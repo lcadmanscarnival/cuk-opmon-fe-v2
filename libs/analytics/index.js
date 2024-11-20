@@ -1,4 +1,5 @@
-export * from './AnalyticsProvider'
+export * from './analytics-provider'
 export * from './destinations'
 export * from './useAnalytics'
 // export * from './withAnalytics'
+// export * from './hooks'

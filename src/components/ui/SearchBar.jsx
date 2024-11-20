@@ -3,11 +3,14 @@ import { AppContext } from 'providers/app-provider'
 import { useContext, useRef, useState } from 'react'
 import { useEffect } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { useAnalytics } from '@repo/analytics'
 
 export const SearchBar = () => {
 	const { appState, updateAppState } = useContext(AppContext)
 	const searchInputRef = useRef()
 	const [focused, setFocused] = useState(false)
+
+	const { track } = useAnalytics()
 
 	useEffect(() => {
 		if (searchInputRef.current) updateAppState('refs', { searchInputRef: searchInputRef.current })
@@ -18,6 +21,7 @@ export const SearchBar = () => {
 		() => {
 			setFocused(false)
 			updateAppState('searchTerm', '')
+			searchInputRef.current.blur()
 		},
 		{ enableOnTags: ['INPUT', 'TEXTAREA'], enableOnFormTags: true }
 	)
@@ -47,6 +51,7 @@ export const SearchBar = () => {
 						value={appState.searchTerm}
 						onChange={e => {
 							updateAppState('searchTerm', e.target.value)
+							track('change', 'SearchBar', { searchTerm: e.target.value })
 						}}
 					/>
 				</div>

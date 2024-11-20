@@ -1,4 +1,5 @@
 'use client'
+
 import { ThemeProvider } from './theme-provider'
 import { HotkeysProvider } from './hotkeys-provider'
 import { AppProvider } from './app-provider'

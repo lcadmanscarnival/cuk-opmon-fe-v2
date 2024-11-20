@@ -1,9 +1,14 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useMemo } from 'react'
-import AnalyticsContext from './AnalyticsContext'
+import React, { useEffect, useMemo, useContext } from 'react'
+import AnalyticsContext from './analytics-context'
 import { globalVariables, analyticsPageConfig, dataLocations, destinationFeeds } from './config'
+import { track } from './functions'
+
+export const useAnalytics = () => {
+	return useContext(AnalyticsContext)
+}
 
 export const AnalyticsProvider = ({ children }) => {
 	const router = useRouter()
@@ -33,5 +38,5 @@ export const AnalyticsProvider = ({ children }) => {
 		}
 	}, [])
 
-	return <AnalyticsContext.Provider value={{ globalConfig }}>{children}</AnalyticsContext.Provider>
+	return <AnalyticsContext.Provider value={{ globalConfig, track }}>{children}</AnalyticsContext.Provider>
 }
