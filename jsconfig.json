@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+		"target": "ES2017",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"baseUrl": "src",
+		"paths": {
+			"@/*": ["src/*"],
+      "providers/*": ["./providers/*"],
+			"libs/utils/*": ["./libs/utils/*"],
+			"icons": ["assets/icons"],
+		}
+	},
+  }
+  

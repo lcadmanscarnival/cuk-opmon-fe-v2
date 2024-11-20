@@ -1,0 +1,395 @@
+/* @import '@radix-ui/themes/styles.css'; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "sans-regular";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "sans-bold";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "sans-semibold";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+
+  src: url("./fonts/semibold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "GreycliffCF-light";
+  font-style: normal;
+  src: url(./fonts/GreycliffCF-Light.woff);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GreycliffCF-medium";
+  font-style: normal;
+  src: url(./fonts/GreycliffCF-Medium.woff);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GreycliffCF-bold";
+  font-style: normal;
+  src: url(./fonts/GreycliffCF-Bold.woff);
+  font-display: swap;
+}
+
+/* Praxis */
+@font-face {
+  font-family: "Praxis-regular";
+  font-style: normal;
+  src: url(./fonts/Praxis-LT-Regular.woff);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Praxis-semibold";
+  font-style: normal;
+  src: url(./fonts/Praxis-LT-Semibold.woff);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Praxis-bold";
+  font-style: normal;
+  src: url(./fonts/Praxis-Bold.woff);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Icomoon";
+  font-style: normal;
+  src: url(./fonts/icomoon.woff);
+  font-display: swap;
+}
+
+@layer base {
+  /* ------- Design Tokens ------- */
+
+  :root {
+    /* ------ Screen Resolutions ------ */
+    --screen-sm: 576px;
+    --screen-md: 768px;
+    --screen-lg: 1025px;
+    --screen-xl: 1281px;
+    --screen-2xl: 1440px;
+
+    --max-width: 1280px;
+    --max-width-full-bleed-image: 1920px;
+
+    /* Colors */
+    /* Primary Colors PO */
+
+    /* Pure White */
+    --color-white: #ffffff;
+    /* Deep Red, similar to the rouge lipstick tone */
+    --color-rouge: #b10f26;
+    /* Dark Blue, typical of navy uniforms */
+    --color-navy-blue: #002776;
+    /* Navy Blue, typical of navy uniforms */
+    --color-light-navy-blue: #002776cc;
+    /* Deep Dark Blue */
+    --color-deep-ocean-blue: #0c2671;
+    /* Metallic Gold, reflects a classic gold appearance */
+    --color-metallic-gold: #988642;
+    /* Medium Gray, neutral and versatile */
+    --color-medium-gray: #666666;
+    /* Brass Gold, a darker shade of gold resembling brass */
+    --color-brass-gold: #9c8736;
+    /* Deep Gray, almost black but lighter, suitable for strong text */
+    --color-deep-gray: #333333;
+    /* Charcoal, a very dark gray that is nearly black */
+    --color-charcoal: #1d1d1d;
+    /* Absolute Black */
+    --color-black: #000000;
+    /* Vibrant Light Green, rich and leafy */
+    --color-light-green: #008006;
+    /* Off White, a soft, warm white ideal for backgrounds */
+    --color-off-white: #fbf9f5;
+    /* deep blue for hyperlinks */
+    --color-deep-blue: #0a256c;
+    /* Secondary Colors */
+
+    /* Bright and clear blue */
+    --color-bright-blue: #0076ce;
+    --color-bright-blue-hover: #3e90cf;
+
+    --color-richRed: #B10F25;
+    --color-richBlue: #0A2872;
+
+    /* Light pampas color, a soft beige often used for neutral backgrounds */
+    --color-soft-beige: #f2f0e8;
+
+    /* Vivid red, great for accents and calls to action */
+    --color-vivid-red: #e30513;
+
+    /* Deep navy, a dark blue suitable for professional and serious tones */
+    --color-deep-navy: #011949;
+
+    /* Fun blue, a lighter, playful blue shade */
+    --color-playful-blue: #a6b4cf;
+    --color-dark-blue: rgb(12, 38, 113);
+
+    /* Light grey, perfect for subtle backgrounds and borders */
+    --color-light-grey: #e5e5e5;
+  
+    /* Medium Light grey, perfect for subtle backgrounds and borders */
+    --color-medium-light-gray: rgba(221, 221, 221, 0.86667);
+
+    /* Very light grey, almost white, used for backgrounds and UI elements */
+    --color-ultra-light-grey: #fbfbfb;
+
+    /* Light green, a fresh color suitable for positive indicators */
+    --color-fresh-green: #caeeb2;
+
+    /* Slate grey, a neutral grey for subtle text and elements */
+    --color-slate-grey: #818487;
+
+    /* Dark grey, useful for less prominent text and shadows */
+    --color-dark-grey: #6f6f6f;
+
+    /* Transparent black, used for overlays or shadow effects */
+    --color-transparent-black: rgba(0, 0, 0, 0.15);
+
+    /* Tertiary Colors */
+    --color-tertiary1: #b0263a;
+    /* AMARANTH */
+    --color-tertiary2: #8d0c1e;
+    /* MAROON */
+    --color-tertiary3: #cccccc;
+    /* LIGHT GREY */
+    --color-light-gray: #bcbdcb;
+    /* DENIM BLUE */
+    --color-tertiary6: #f7f7f7;
+    --color-tertiary7: #0c286b;
+    --color-tertiary8: #ffed68;
+    /* Light Yellow */
+    --color-tertiary9: #a39160;
+    /* light blue-gray shade */
+    --color-light-blue-gray: #e3e2e8;
+    /* A very pale gray-blue */
+    --color-soft-gray-blue: #f2f4f8;
+    /* LIGHT GOLD */
+    --color-gold-dark: #766523;
+    /*Dark Gold*/
+    --color-tertiary10: #c4c4c4;
+    /* SCROLLBAR */
+    --color-tertiary11: #f9f9f9;
+    --color-offWhite: #fbf9f5;
+    --color-lightBlue: #bce4fa;
+    --color-disable-state: #bcbdca;
+    --color-blue-350: #002776;
+    --color-gray-background: #F2F0E9;
+    --color-light-blue-sky: #edf1f7;
+    --color-background-disabled: #F8F8F8;
+    --color-disabled-lightGray: #F2F2F2;
+    --color-background-floral-white: #FAF9F7;
+
+    /* Transparent Colors */
+    --color-primary1-opacity-40: rgba(255, 255, 255, 0.4);
+    --color-primary1-opacity-70: rgba(255, 255, 255, 0.7);
+    --color-primary1-opacity-71: rgba(255, 255, 255, 0.4);
+    --tile-border-color: rgba(0, 39, 118, 0.35);
+    --divider: rgba(254, 254, 254, 0.6);
+    --color-carousel-arrow-background: rgba(59, 63, 113, 0.8);
+    --color-separator: rgb(167, 167, 167, 0.5);
+    --color-primary3-opacity-35: rgb(0, 39, 118, 0.35);
+    --color-primary3-opacity-36: rgba(0, 15, 44, 0);
+    --color-primary3-opacity-37: rgb(0 0 0 / 25%);
+
+    /* Helper Colors */
+    --background-color: #f4f3f3;
+    --border-color: #abafc0;
+
+    --border-color-secondary: #a7a7a7;
+    --color-modal-underlay: #f7f7f7;
+
+    /*search background for new design*/
+    --color-search-tile-device: #f5f5f5;
+    --color-border-search-tile-device: #dadada;
+
+    /* Fonts */
+    --font-heading-light: "GreycliffCF-light";
+    --font-heading-medium: "GreycliffCF-medium";
+    --font-heading-bold: "GreycliffCF-bold";
+    --font-text-regular: "Praxis-regular";
+    --font-text-semibold: "Praxis-semibold";
+    --font-text-bold: "Praxis-bold";
+    --font-text-icomoon: "Icomoon";
+
+    /* Opaque backgrounds */
+    --opaque-background1: rgba(0, 0, 0, 0.3);
+    /* LIGHT BLACK */
+    --opaque-background2: rgba(0, 0, 0, 0.54);
+    /* DARK BLACK */
+    --opaque-background3: rgba(255, 255, 255, 0.3);
+    /* WHITE */
+    --opaque-background4: rgba(0, 0, 0, 0.75);
+    /* DEEP BLACK */
+    --opaque-background5: rgba(0, 0, 0, 0.9);
+    /* Media Image Background*/
+    --opaque-background6: rgba(32, 40, 91, 0.8);
+    /* DEEP BLUE */
+    --opaque-background7: rgba(32, 40, 91, 0.54);
+    /* OVERLAY BLUE */
+    --opaque-background8: rgba(166, 180, 207, 0.4);
+    --opaque-background9: rgb(227, 226, 232, 0.7);
+    --opaque-background10: rgba(255, 255, 255, 0);
+    --opaque-background11: rgba(0, 0, 0, 0.1);
+    --opaque-background12: rgba(102, 102, 102, 0.8);
+    --opaque-background13: rgba(0, 15, 44, 0.5);
+    --opaque-background14: rgba(0, 39, 118, 0.85);
+    --opaque-background15: rgba(29, 29, 29, 0.85);
+
+    /* BLUE outline on focus */
+    --color-focus: #00b5cb;
+
+    /* DARK THEME BACKGROUND */
+    --color-dark-theme-background: rgba(60, 53, 26, 0.07);
+    --color-light-theme-background: rgb(247, 247, 247);
+
+    /* Gradient colors */
+    --gradient-primary1: rgba(0, 0, 0, 0.1);
+    --gradient-primary2: rgba(0, 0, 0, 0.15);
+    --gradient-secondary1: rgba(32, 40, 91, 0.22);
+    --gradient-secondary2: rgba(18, 22, 51, 0.8);
+    --gradient-white3: rgba(255, 255, 255, 0.6);
+    --gradient-box-shadow: rgba(0, 0, 0, 0.2);
+    --color-image-overlay: rgba(0, 0, 0, 0.5);
+
+    /* Padding start */
+
+    /* Extra small */
+    --padding-xs: 1.125rem;
+    /* Small */
+    --padding-sm: 1.875rem;
+    /* Medium */
+    --padding-md: 2.1875rem;
+    /* Large */
+    --padding-lg: 3.75rem;
+    /* Custom padding */
+    --padding-7px: 7px;
+    --padding-14px: 0.875rem;
+    --padding-15px: 0.938rem;
+    --padding-100px: 6.25rem;
+
+    /* Padding end */
+
+    /* Margin start */
+
+    --margin-9: 9px;
+    --margin-18: 18px;
+    --margin-70: 70px;
+    --margin-50: 3.125rem;
+    --margin-20: 1.25rem;
+    --margin-30: 1.875rem;
+
+    /* Margin end */
+
+    /* Gap start */
+    --gap-medium: 35px;
+    /* Gap end */
+
+    /* .h1 {
+      @apply font-regular text-[21px] md:text-[35px] leading-[1.428] tracking-[.075em] text-[var(--color-primary4)] md:leading-[1.285];
+    } */
+    /* loader colors start */
+    --loader-segment: #707070;
+    --loader-track: #c4c4c4;
+    /* loader colors end */
+
+    /* Spacing */
+    --spacing-large-component: 25.25rem;
+
+    /* Width */
+    --content-width: 23.5rem;
+    --three-tile-width: calc((100% - 60px) / 3);
+    --four-tile-width: calc((100% - 60px) / 4);
+    --full-minus-80-width: calc(100% - 80px);
+    --width-icon-sm: 13px;
+    /* Max Width */
+    --max-container-width: 1130px;
+    --max-container-fluid: 1144px;
+    /* Height */
+    --height-extra-small: 20.625rem;
+    --height-250: 250px;
+    --height-small: 411px;
+    --height-medium: 440px;
+    --height-large: 482px;
+    --height-extra-large: 500px;
+    --height-tablet: 646px;
+    --height-huge: 1048px;
+    --height-blog-tile-sm: 189px;
+    --height-blog-tile-md: 216px;
+    --height-blog-tile-lg: 295px;
+    --height-icon-sm: 13px;
+
+    /* Lineheight */
+    --lead-1: 1.375rem;
+    --lead-2: 1.875rem;
+    --lead-3: 2.5rem;
+    --lead-4: 3.125rem;
+    --lead-5: 1.625rem;
+    /* Font size */
+    --font-size-1: 2.5rem;
+    --font-size-10: 0.625rem;
+    --font-size-13: 0.8125rem;
+    --font-size-18: 1.125rem;
+    --font-size-19: 1.1875rem;
+    --font-size-22: 1.375rem;
+
+    /* Border Radius */
+    --standard-border-radius: 10px;
+    --font-size-lg: 1.5rem;
+
+    /* Border Radius */
+    --standard-border-radius: 10px;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  img,
+  video {
+    width: 100%;
+  }
+
+  .currency i {
+    font-style: normal;
+    font-size: 100%;
+    font-feature-settings: 'lnum' 1;
+  }
+  .break-word {
+    word-break: break-word;
+  }
+
+  .product-tileDescription ul {
+    list-style: inherit;
+    margin-left: 16px;
+  }
+}

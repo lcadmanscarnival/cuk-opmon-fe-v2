@@ -1,0 +1,6 @@
+export * as globalVariables from './global-variables.json'
+export * as analyticsPageConfig from './analytics-page-config.json'
+export * as dataLocations from './data-locations.json'
+export * as destinationFeeds from './destination-feeds.json'
+// export * as dataSources from './data-sources.json'
+// export * as dataDestinations from './data-destinations.json'

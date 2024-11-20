@@ -1,0 +1,25 @@
+
+
+> @repo/tailwind-config@3.5.3 build /Users/lukeadmans/Downloads/Repos/carnivaluk-po-ui-apps-4cad58fdea39 2/configs/tailwind-config
+> tsup
+
+(node:88003) ExperimentalWarning: Importing JSON modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+[34mCLI[39m Building entry: {"index":"index.ts"}
+[34mCLI[39m Using tsconfig: tsconfig.json
+[34mCLI[39m tsup v7.2.0
+[34mCLI[39m Using tsup config: /Users/lukeadmans/Downloads/Repos/carnivaluk-po-ui-apps-4cad58fdea39 2/configs/tailwind-config/tsup.config.ts
+[34mCLI[39m Target: es2022
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist/index.js     [22m[32m6.31 KB[39m
+[32mESM[39m [1mdist/index.js.map [22m[32m13.74 KB[39m
+[32mESM[39m ⚡️ Build success in 51ms
+[32mCJS[39m [1mdist/index.cjs     [22m[32m6.37 KB[39m
+[32mCJS[39m [1mdist/index.cjs.map [22m[32m13.74 KB[39m
+[32mCJS[39m ⚡️ Build success in 51ms
+[34mDTS[39m Build start
+[32mDTS[39m ⚡️ Build success in 697ms
+[32mDTS[39m [1mdist/index.d.cts [22m[32m7.98 KB[39m
+[32mDTS[39m [1mdist/index.d.ts  [22m[32m7.98 KB[39m

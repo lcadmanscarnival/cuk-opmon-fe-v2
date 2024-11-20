@@ -3,4 +3,5 @@ packages:
   - "packages/*"
   - "libs/commons/*"
   - "libs/hooks/*"
+  - "libs/*"
   - "configs/*"
