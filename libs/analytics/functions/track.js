@@ -1,5 +1,7 @@
+import { analyticsDebugLog } from '@repo/analytics'
+
 export const track = (event, component, properties) => {
-	console.log('🚀 - Track | ', `event: ${event} | component: ${component} | `, `properties:`, properties)
+	analyticsDebugLog({ details: { event: event, component: component, properties: properties, method: 'track' }, conditionFn: true })
 
 	// READ FROM JSON AND DECIDE WHAT DESTINATIONS TO SEND TO
 	const destinations = []

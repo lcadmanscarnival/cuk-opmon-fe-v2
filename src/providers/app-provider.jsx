@@ -1,18 +1,16 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 
 export const AppContext = createContext({})
 
 export const AppProvider = ({ children }) => {
 	const [appState, setAppState] = useState({ refs: {}, searchTerm: '', functions: {} })
 
-	useEffect(() => {
-		console.log('appState')
-		console.log(appState)
-	}, [appState])
+	// useEffect(() => {
+	// 	console.log('appState')
+	// 	console.log(appState)
+	// }, [appState])
 
 	const updateAppState = (type, value) => {
 		if (typeof appState[type] === 'object') {

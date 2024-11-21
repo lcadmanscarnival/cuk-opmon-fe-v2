@@ -1,33 +1,29 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useContext } from 'react'
 import AnalyticsContext from './analytics-context'
 import { globalVariables, analyticsPageConfig, dataLocations, destinationFeeds } from './config'
-import { track } from './functions'
+import { track, pageTrack } from '@repo/analytics/functions'
+import { initializeAnalytics } from '@repo/analytics/lib'
 
 export const useAnalytics = () => {
 	return useContext(AnalyticsContext)
 }
 
 export const AnalyticsProvider = ({ children }) => {
-	const router = useRouter()
+	const pathName = usePathname()
+	// const { trackPageView } = useAnalytics()
 
 	useEffect(() => {
-		// Initialize analytics once on the client side
-		// initializeAnalytics()
-		console.log('🚀 Init Analytics')
+		// Initialize the analytics provider
+		initializeAnalytics()
 
 		// Track page views on route changes
-		// const handleRouteChange = url => {
-		// 	trackPageView(url)
-		// }
+		pageTrack()
 
-		// router.events.on('routeChangeComplete', handleRouteChange)
-		return () => {
-			// router.events.off('routeChangeComplete', handleRouteChange)
-		}
-	}, [router.events])
+		// trackPageView(url)
+	}, [pathName])
 
 	const globalConfig = useMemo(() => {
 		return {
