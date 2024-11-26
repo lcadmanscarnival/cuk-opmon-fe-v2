@@ -5,6 +5,8 @@ import { useAnalytics } from '@repo/analytics'
 import { Header, SearchBar } from 'components/ui'
 import { Icons } from 'icons'
 import { useRouter, usePathname } from 'next/navigation'
+import { DataContext } from '../../providers/data-provider'
+import { useContext } from 'react'
 
 export default function Home() {
 	return (
@@ -17,36 +19,46 @@ export default function Home() {
 
 export function Body() {
 	const analytics = useAnalytics()
+	const appData = useContext(DataContext)
+	const { appsData } = appData.data
 
 	return (
 		<>
 			<div className='body'>
 				<div className='container mx-auto pt-24 '>
 					<SearchBar />
-					<Tiles />
+					{/* APPS TILES */}
+					<Tiles appsData={appsData} />
 				</div>
 			</div>
 		</>
 	)
 }
 
-export const Tiles = () => {
+export const Tiles = props => {
+	const { appsData } = props
+
 	const analytics = useAnalytics()
 	return (
 		<>
 			<div className='tiles-wrapper w-full pt-16'>
-				<h2 className='title text-lg font-semibold w-full pb-4'>Quick Links</h2>
-				<div className='tiles flex'>
-					{[{ displayName: 'xDining' }, { displayName: 'xDining' }, { displayName: 'xDining' }, { displayName: 'xDining' }].map((item, index) => {
-						return <Tile item={item} key={'tile-' + item.displayName + index} />
+				<div className='title flex'>
+					<h2 className='title text-lg font-semibold w-full pb-4'>Applications</h2>
+					<div className='shipname'>Arvia </div>
+				</div>
+				<div className='tiles flex flex-wrap gap-4'>
+					{appsData.entities.map((item, index) => {
+						return (
+							<>
+								<Tile item={item} key={'tile-' + item.displayName + index} />
+							</>
+						)
 					})}
 				</div>
-				<h2 className='title text-lg font-semibold w-full pt-12 pb-4'>Applications</h2>
-				<div className='tiles flex'>
-					{[{ displayName: 'xDining' }, { displayName: 'xDining' }, { displayName: 'xDining' }, { displayName: 'xDining' }].map((item, index) => {
-						return <Tile item={item} key={'tile-' + item.displayName + index} />
-					})}
-				</div>
+				<h2 className='title text-lg font-semibold w-full pt-12 pb-4'>Dashboards</h2>
+				<div className='tiles flex'></div>
+				<h2 className='title text-lg font-semibold w-full pt-12 pb-4'>Problems</h2>
+				<div className='tiles flex'></div>
 			</div>
 		</>
 	)
@@ -59,7 +71,7 @@ export const Tile = props => {
 
 	return (
 		<>
-			<Link href={pathname + '/' + displayName} className='tile w-full bg-gray-50 rounded-lg mr-2 p-5'>
+			<Link href={pathname + '/' + displayName} className='tile w-[32%] bg-gray-50 rounded-lg mr-2 p-5'>
 				<Icons.fingerprint className='w-5 h-5' />
 				<div className='title pt-2 text-slate-900 font-semibold text-md'>{displayName}</div>
 			</Link>

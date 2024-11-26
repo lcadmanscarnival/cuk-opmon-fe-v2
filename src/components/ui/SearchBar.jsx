@@ -51,7 +51,8 @@ export const SearchBar = () => {
 						value={appState.searchTerm}
 						onChange={e => {
 							updateAppState('searchTerm', e.target.value)
-							track('change', 'SearchBar', { searchTerm: e.target.value })
+							// track('change', 'SearchBar', { searchTerm: e.target.value })
+							track({ action: 'keydown', event: e, component: 'SearchBar', properties: { searchTerm: e.target.value } })
 						}}
 					/>
 				</div>

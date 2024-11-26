@@ -1,13 +1,21 @@
 import { Icons } from 'icons'
 
+import { useAnalytics } from '@repo/analytics'
+
 export const Header = () => {
+	const { track } = useAnalytics()
 	return (
 		<>
 			<header className={'w-full border-b py-4 '}>
 				<div className='container mx-auto '>
 					<div className='flex justify-between items-center h-full'>
 						<div className='left flex items-center'>
-							<div className='hamburger pr-4 cursor-pointer hover:opacity-80'>
+							<div
+								className='hamburger pr-4 cursor-pointer hover:opacity-80'
+								onClick={e => {
+									track({ action: 'click', event: e, component: 'header', properties: 'null' })
+								}}
+							>
 								<Icons.hamburger className='w-6 h-6' />
 							</div>
 							<div className='icon'>

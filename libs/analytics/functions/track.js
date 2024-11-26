@@ -1,7 +1,8 @@
 import { analyticsDebugLog } from '@repo/analytics'
 
-export const track = (event, component, properties) => {
-	analyticsDebugLog({ details: { event: event, component: component, properties: properties, method: 'track' }, conditionFn: true })
+export const track = props => {
+	const { action, event, component, properties } = props
+	analyticsDebugLog({ details: { action: action, event: event, component: component, properties: properties, method: 'track' }, conditionFn: true })
 
 	// READ FROM JSON AND DECIDE WHAT DESTINATIONS TO SEND TO
 	const destinations = []
