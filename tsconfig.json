@@ -20,10 +20,12 @@
 			}
 		],
 		"paths": {
-      "@/*": ["src/*"],
-      "providers/*": ["./providers/*"],
-			"libs/utils": ["./libs/utils"], 
-			"icons": ["assets/icons"],
+			"@/*": ["src/*"],
+			"shadcn/*": ["src/components/shadcn/*"],
+			"components/*": ["src/components/*"],
+			"providers/*": ["./providers/*"],
+			"libs/utils": ["./libs/utils"],
+			"icons": ["assets/icons"]
 		},
 		
 	},

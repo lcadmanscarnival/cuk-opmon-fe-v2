@@ -1,23 +1,23 @@
 import { API_ENDPOINTS } from './'
+import { mockData } from '../../data/mock'
 
 export const fetchData = async props => {
-	const { endpoint } = props
+	const { endpoint, properties } = props
+	let response
+	// console.log(properties)
+	let apiAvailable = true
 
-	console.log('>> Fetch API')
-	// console.log(`${process.env.NEXT_PUBLIC_API_URL}${API_ENDPOINTS[endpoint]}`)
-
-	// const ship_id = '123'
-	console.log(`${process.env.NEXT_PUBLIC_API_URL}${API_ENDPOINTS[endpoint](null)}`)
-
-	const response = await fetch(process.env.NEXT_PUBLIC_API_URL + API_ENDPOINTS[endpoint](null))
+	if (apiAvailable) {
+		try {
+			console.log('>> Fetch API')
+			console.log(`${process.env.NEXT_PUBLIC_API_URL}${API_ENDPOINTS[endpoint](properties)}`)
+			response = await fetch(process.env.NEXT_PUBLIC_API_URL + API_ENDPOINTS[endpoint](properties))
+		} catch (e) {
+			console.log('error')
+			console.log(e)
+		}
+	} else {
+		return mockData[endpoint]
+	}
 	return response.json()
-
-	// return response
-}
-
-export const fetchApi = async (endpoint, context) => {
-	console.log('>> Fetch API')
-	console.log(`${process.env}/${API_ENDPOINTS[endpoint]}`)
-	// const response = await fetch(process.env + endpoint, options)
-	// return response.json()
 }

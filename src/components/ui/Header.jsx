@@ -1,6 +1,20 @@
 import { Icons } from 'icons'
 
 import { useAnalytics } from '@repo/analytics'
+import { OrganizeImportsMode } from 'typescript'
+
+export const Button = props => {
+	return (
+		<div
+			className='hamburger pr-4 cursor-pointer hover:opacity-80'
+			onClick={e => {
+				track({ action: 'click', event: e, component: 'header', properties: { type: 'hamburger' } })
+			}}
+		>
+			<Icons.hamburger className='w-6 h-6' />
+		</div>
+	)
+}
 
 export const Header = () => {
 	const { track } = useAnalytics()
@@ -10,14 +24,7 @@ export const Header = () => {
 				<div className='container mx-auto '>
 					<div className='flex justify-between items-center h-full'>
 						<div className='left flex items-center'>
-							<div
-								className='hamburger pr-4 cursor-pointer hover:opacity-80'
-								onClick={e => {
-									track({ action: 'click', event: e, component: 'header', properties: 'null' })
-								}}
-							>
-								<Icons.hamburger className='w-6 h-6' />
-							</div>
+							<Button properties={{ organismId: 'header' }} />
 							<div className='icon'>
 								<Icons.logo className='w-12 h-12' />
 							</div>

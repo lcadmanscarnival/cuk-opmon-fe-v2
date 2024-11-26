@@ -8,9 +8,11 @@
 		"baseUrl": "src",
 		"paths": {
 			"@/*": ["src/*"],
-      "providers/*": ["./providers/*"],
+			"shadcn/*": ["src/components/shadcn/*"],
+			"components/*": ["src/components/*"],
+			"providers/*": ["src/providers/*"],
 			"libs/utils/*": ["./libs/utils/*"],
-			"icons": ["assets/icons"],
+			"icons": ["assets/icons"]
 		}
 	},
   }

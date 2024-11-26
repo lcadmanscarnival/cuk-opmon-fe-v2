@@ -7,10 +7,11 @@ import { Icons } from 'icons'
 import { useRouter, usePathname } from 'next/navigation'
 import { DataContext } from '../../providers/data-provider'
 import { useContext } from 'react'
+import { Tiles } from 'components/ui'
 
 export default function Home() {
 	return (
-		<div className='main bg-gray-100 w-screen h-screen'>
+		<div className='main w-screen h-screen'>
 			<Header />
 			<Body />
 		</div>
@@ -19,62 +20,48 @@ export default function Home() {
 
 export function Body() {
 	const analytics = useAnalytics()
-	const appData = useContext(DataContext)
-	const { appsData } = appData.data
+	const dataContext = useContext(DataContext)
+	const { appsData, problemsData, hostsData } = dataContext.data
+	const [appState, setAppState] = dataContext.useAppState
+
+	console.log(problemsData)
+	console.log(hostsData)
 
 	return (
 		<>
 			<div className='body'>
 				<div className='container mx-auto pt-24 '>
 					<SearchBar />
-					{/* APPS TILES */}
-					<Tiles appsData={appsData} />
+					{appState.currentView === 'apps' ? (
+						<>
+							<Tiles title={'Applications'} data={appsData.entities} search={true} keys={{ title: 'displayName' }} />
+							<Tiles title={'Problems'} data={problemsData.problems} keys={{ title: 'title' }} />
+							<Tiles title={'Hosts'} data={hostsData.entities} keys={{ title: 'displayName' }} />
+						</>
+					) : (
+						<Application useAppState={[appState, setAppState]} />
+					)}
 				</div>
 			</div>
 		</>
 	)
 }
-
-export const Tiles = props => {
-	const { appsData } = props
-
-	const analytics = useAnalytics()
+export const Application = props => {
+	const { useAppState } = props
+	const [appState, setAppState] = useAppState
+	const { currentView } = appState
 	return (
-		<>
-			<div className='tiles-wrapper w-full pt-16'>
-				<div className='title flex'>
-					<h2 className='title text-lg font-semibold w-full pb-4'>Applications</h2>
-					<div className='shipname'>Arvia </div>
-				</div>
-				<div className='tiles flex flex-wrap gap-4'>
-					{appsData.entities.map((item, index) => {
-						return (
-							<>
-								<Tile item={item} key={'tile-' + item.displayName + index} />
-							</>
-						)
-					})}
-				</div>
-				<h2 className='title text-lg font-semibold w-full pt-12 pb-4'>Dashboards</h2>
-				<div className='tiles flex'></div>
-				<h2 className='title text-lg font-semibold w-full pt-12 pb-4'>Problems</h2>
-				<div className='tiles flex'></div>
+		<div className='tiles-wrapper w-full pt-16'>
+			<div
+				className='uppercase text-xs cursor-pointer'
+				onClick={() => {
+					setAppState({ ...appState, currentView: 'apps' })
+				}}
+			>{`< back`}</div>
+			<div className='title flex'>
+				<h2 className='title text-xl font-bold w-full'>{currentView}</h2>
+				<div className='shipname'>Arvia </div>
 			</div>
-		</>
-	)
-}
-
-export const Tile = props => {
-	const { item } = props
-	const { displayName } = item
-	const pathname = usePathname()
-
-	return (
-		<>
-			<Link href={pathname + '/' + displayName} className='tile w-[32%] bg-gray-50 rounded-lg mr-2 p-5'>
-				<Icons.fingerprint className='w-5 h-5' />
-				<div className='title pt-2 text-slate-900 font-semibold text-md'>{displayName}</div>
-			</Link>
-		</>
+		</div>
 	)
 }

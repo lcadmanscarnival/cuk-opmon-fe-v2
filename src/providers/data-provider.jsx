@@ -6,11 +6,12 @@ import { createContext, useState } from 'react'
 export const DataContext = createContext({})
 
 export const DataProvider = ({ data, children }) => {
-	// const [appState, setAppState] = useState({ refs: {}, searchTerm: '', functions: {} })
+	const [appState, setAppState] = useState({ currentView: 'apps' })
 
 	useEffect(() => {
-		console.log(data)
-	}, [data])
+		console.log('appState')
+		console.log(appState)
+	}, [appState])
 
-	return <DataContext.Provider value={{ data }}>{children}</DataContext.Provider>
+	return <DataContext.Provider value={{ data, useAppState: [appState, setAppState] }}>{children}</DataContext.Provider>
 }

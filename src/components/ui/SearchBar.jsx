@@ -1,19 +1,34 @@
+'use client'
+
 import { Icons } from 'icons'
 import { AppContext } from 'providers/app-provider'
 import { useContext, useRef, useState } from 'react'
 import { useEffect } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useAnalytics } from '@repo/analytics'
+import { fetchData } from '../../libs/api'
+import { suggestedSearches } from '../../data/search'
+import { useQueryState } from 'nuqs'
+
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useCallback } from 'react'
+
+export async function SearchApi(query) {
+	// console.log(query)
+	const results = await fetchData({ endpoint: 'search', properties: { query } })
+	return results.json()
+}
 
 export const SearchBar = () => {
 	const { appState, updateAppState } = useContext(AppContext)
 	const searchInputRef = useRef()
 	const [focused, setFocused] = useState(false)
-
 	const { track } = useAnalytics()
 
+	const [searchResults, setSearchResults] = useState([])
+
 	useEffect(() => {
-		if (searchInputRef.current) updateAppState('refs', { searchInputRef: searchInputRef.current })
+		if (searchInputRef.current && !appState.refs.searchInputRef) updateAppState('refs', { searchInputRef: searchInputRef.current })
 	}, [searchInputRef])
 
 	useHotkeys(
@@ -24,6 +39,26 @@ export const SearchBar = () => {
 			searchInputRef.current.blur()
 		},
 		{ enableOnTags: ['INPUT', 'TEXTAREA'], enableOnFormTags: true }
+	)
+
+	const router = useRouter()
+	const pathname = usePathname()
+	const searchParams = useSearchParams()
+
+	useEffect(() => {
+		if (appState.searchTerm.length > 1) router.push(pathname + '?' + createQueryString('sort', appState.searchTerm))
+	}, [appState.searchTerm])
+
+	// Get a new searchParams string by merging the current
+	// searchParams with a provided key/value pair
+	const createQueryString = useCallback(
+		(name, value) => {
+			const params = new URLSearchParams(searchParams.toString())
+			params.set(name, value)
+
+			return params.toString()
+		},
+		[searchParams]
 	)
 
 	return (
@@ -51,7 +86,7 @@ export const SearchBar = () => {
 						value={appState.searchTerm}
 						onChange={e => {
 							updateAppState('searchTerm', e.target.value)
-							// track('change', 'SearchBar', { searchTerm: e.target.value })
+							// router.push(pathname + '?' + createQueryString('sort', e.target.value), undefined, { shallow: true })
 							track({ action: 'keydown', event: e, component: 'SearchBar', properties: { searchTerm: e.target.value } })
 						}}
 					/>
@@ -65,10 +100,20 @@ export const SearchBar = () => {
 			</div>
 			<div className={`searchbar-results relative z-[99] -top-1 w-full bg-white h-24 border border-gray-300  rounded-b-xl ${focused ? 'active' : ''}`}>
 				<div className='inner p-4 pt-6'>
-					{['Narrow Your Searches', 'Recent Searches', 'Recently Viewed', 'Suggested'].map((item, index) => (
+					{searchResults.length === 0 ? <div className='mb-6 pb-6 text-slate-600 animate-pulse text-sm border-b'>Keep Typing...</div> : <></>}
+					{[{ displayName: 'Recent Searches' }, { displayName: 'Recently Viewed' }, { displayName: 'Suggested', entries: suggestedSearches }].map((item, index) => (
 						<div key={index} className='item'>
-							<div className='title uppercase text-xs text-slate-500'>{item}</div>
-							<div className='entries h-12'></div>
+							<div className='title uppercase text-xs text-slate-500'>{item.displayName}</div>
+							<div className='entries h-12'>
+								{item.entries &&
+									item.entries.map((entry, index) => {
+										return (
+											<div key={index} className='entry my-4 px-2'>
+												<div className='title'>{entry}</div>
+											</div>
+										)
+									})}
+							</div>
 							<div className='item'></div>
 						</div>
 					))}
