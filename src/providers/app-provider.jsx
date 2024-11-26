@@ -5,7 +5,7 @@ import { createContext, useState } from 'react'
 export const AppContext = createContext({})
 
 export const AppProvider = ({ children }) => {
-	const [appState, setAppState] = useState({ refs: {}, searchTerm: '', functions: {} })
+	const [appState, setAppState] = useState({ refs: {}, searchTerm: '', functions: {}, currentView: 'apps' })
 
 	// useEffect(() => {
 	// 	console.log('appState')
@@ -20,5 +20,5 @@ export const AppProvider = ({ children }) => {
 		}
 	}
 
-	return <AppContext.Provider value={{ init: true, refs: {}, appState, updateAppState }}>{children}</AppContext.Provider>
+	return <AppContext.Provider value={{ init: true, refs: {}, appState, updateAppState, currentView: 'apps' }}>{children}</AppContext.Provider>
 }

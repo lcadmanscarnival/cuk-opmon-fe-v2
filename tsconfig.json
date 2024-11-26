@@ -21,7 +21,7 @@
 		],
 		"paths": {
 			"@/*": ["src/*"],
-			"shadcn/*": ["src/components/shadcn/*"],
+			"shadcn/*": ["./components/shadcn/*"],
 			"components/*": ["src/components/*"],
 			"providers/*": ["./providers/*"],
 			"libs/utils": ["./libs/utils"],
@@ -29,7 +29,7 @@
 		},
 		
 	},
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/layout.jsx", "src/app/cuk/page.jsx", "libs/analytics/analytics-provider.js", "src/libs/api/apiUtils.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/layout.jsx", "src/app/cuk/page.jsx", "libs/analytics/analytics-provider.js", "src/libs/api/apiUtils.js", "src/components/shadcn/icons/index.s"],
 
   "exclude": ["node_modules"]
 }

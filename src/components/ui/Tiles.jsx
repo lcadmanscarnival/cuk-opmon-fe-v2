@@ -2,6 +2,8 @@ import { useAnalytics } from '@repo/analytics'
 import { DataContext } from 'providers/data-provider'
 import { useContext } from 'react'
 import { Icons } from 'icons'
+import { AppContext } from 'providers'
+import { useQueryState } from 'nuqs'
 
 export const Tiles = props => {
 	const { data, title, keys, search } = props
@@ -28,18 +30,17 @@ export const Tiles = props => {
 export const Tile = props => {
 	const { item, title, search } = props
 	const displayName = title
-
-	const dataContext = useContext(DataContext)
-	const { useAppState } = dataContext
-	const [appState, setAppState] = useAppState
+	const { appState, updateAppState } = useContext(AppContext)
+	const [searchTerm, setSearchTerm] = useQueryState('query')
+	const [view, setView] = useQueryState('view')
 
 	return (
 		<>
-			{/* <Link href={pathname + '/' + displayName} className='tile w-[32%] bg-gray-50 rounded-lg mr-2 p-5'> */}
 			<div
 				className='tile w-[32%] bg-gray-50 rounded-lg mr-2 p-5 cursor-pointer'
 				onClick={e => {
-					setAppState({ ...appState, currentView: displayName })
+					updateAppState('currentView', displayName)
+					setView(displayName)
 				}}
 			>
 				<Icons.fingerprint className='w-5 h-5' />
@@ -51,7 +52,8 @@ export const Tile = props => {
 								className='search border w-8 h-8 p-1 rounded-full cursor-pointer hover:opacity-70 z-[90]'
 								onClick={e => {
 									e.stopPropagation()
-									console.log(searchTerm)
+									appState.refs.searchInputRef.focus()
+									setSearchTerm(displayName + ' ')
 								}}
 							/>
 						</>
@@ -60,7 +62,6 @@ export const Tile = props => {
 					)}
 				</div>
 			</div>
-			{/* </Link> */}
 		</>
 	)
 }

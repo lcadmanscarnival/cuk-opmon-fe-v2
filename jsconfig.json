@@ -11,7 +11,7 @@
 			"shadcn/*": ["src/components/shadcn/*"],
 			"components/*": ["src/components/*"],
 			"providers/*": ["src/providers/*"],
-			"libs/utils/*": ["./libs/utils/*"],
+			"libs/*": ["./libs/*"],
 			"icons": ["assets/icons"]
 		}
 	},

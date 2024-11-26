@@ -1,19 +1,20 @@
 'use client'
 
-import Link from 'next/link'
 import { useAnalytics } from '@repo/analytics'
-import { Header, SearchBar } from 'components/ui'
-import { Icons } from 'icons'
-import { useRouter, usePathname } from 'next/navigation'
-import { DataContext } from '../../providers/data-provider'
+import { Header, SearchBar, Tiles } from 'components/ui'
 import { useContext } from 'react'
-import { Tiles } from 'components/ui'
+import { AppContext, DataContext } from 'providers'
+import { Suspense } from 'react'
 
 export default function Home() {
 	return (
 		<div className='main w-screen h-screen'>
 			<Header />
-			<Body />
+
+			<Suspense fallback={<p>Loading...</p>}>
+				{/* <PostFeed /> */}
+				<Body />
+			</Suspense>
 		</div>
 	)
 }
@@ -22,10 +23,10 @@ export function Body() {
 	const analytics = useAnalytics()
 	const dataContext = useContext(DataContext)
 	const { appsData, problemsData, hostsData } = dataContext.data
-	const [appState, setAppState] = dataContext.useAppState
+	const { appState, updateAppState } = useContext(AppContext)
 
-	console.log(problemsData)
-	console.log(hostsData)
+	// console.log(problemsData)
+	// console.log(hostsData)
 
 	return (
 		<>
@@ -39,7 +40,7 @@ export function Body() {
 							<Tiles title={'Hosts'} data={hostsData.entities} keys={{ title: 'displayName' }} />
 						</>
 					) : (
-						<Application useAppState={[appState, setAppState]} />
+						<Application />
 					)}
 				</div>
 			</div>
@@ -47,15 +48,14 @@ export function Body() {
 	)
 }
 export const Application = props => {
-	const { useAppState } = props
-	const [appState, setAppState] = useAppState
+	const { appState, updateAppState } = useContext(AppContext)
 	const { currentView } = appState
 	return (
 		<div className='tiles-wrapper w-full pt-16'>
 			<div
 				className='uppercase text-xs cursor-pointer'
 				onClick={() => {
-					setAppState({ ...appState, currentView: 'apps' })
+					updateAppState('currentView', 'apps')
 				}}
 			>{`< back`}</div>
 			<div className='title flex'>

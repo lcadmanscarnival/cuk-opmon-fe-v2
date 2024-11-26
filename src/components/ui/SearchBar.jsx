@@ -1,36 +1,51 @@
 'use client'
 
-import { Icons } from 'icons'
-import { AppContext } from 'providers/app-provider'
-import { useContext, useRef, useState } from 'react'
-import { useEffect } from 'react'
-import { useHotkeys } from 'react-hotkeys-hook'
 import { useAnalytics } from '@repo/analytics'
-import { fetchData } from '../../libs/api'
-import { suggestedSearches } from '../../data/search'
+import { Icons } from 'icons'
 import { useQueryState } from 'nuqs'
+import { AppContext } from 'providers'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
+import { suggestedSearches } from '../../data/search'
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import { searchApi } from '../../libs/api'
 
-export async function SearchApi(query) {
-	// console.log(query)
-	const results = await fetchData({ endpoint: 'search', properties: { query } })
-	return results.json()
+export const SearchEntry = props => {
+	const { entry, index } = props
+	return (
+		<div key={index} className='entry my-4 px-2 flex'>
+			<Icons.history className={'w-6 h-6 mr-2 text-gray-600'} /> <div className='title'>{entry}</div>
+		</div>
+	)
 }
-
 export const SearchBar = () => {
 	const { appState, updateAppState } = useContext(AppContext)
 	const searchInputRef = useRef()
 	const [focused, setFocused] = useState(false)
 	const { track } = useAnalytics()
-
+	const [searchTerm, setSearchTerm] = useQueryState('query')
 	const [searchResults, setSearchResults] = useState([])
 
 	useEffect(() => {
-		if (searchInputRef.current && !appState.refs.searchInputRef) updateAppState('refs', { searchInputRef: searchInputRef.current })
-	}, [searchInputRef])
+		if (searchInputRef.current) updateAppState('refs', { searchInputRef: searchInputRef.current })
+	}, [searchInputRef, updateAppState])
 
+	useEffect(() => {
+		searchApi().then(data => {
+			console.log(data)
+		})
+	}, [])
+
+	// useEffect(() => {
+	// 	console.log(process.env.NEXT_PUBLIC_API_URL + `/api/search?q=dashboard`)
+	// 	fetch(process.env.NEXT_PUBLIC_API_URL + `/api/search?q=dashboard`)
+	// 		.then(res => res.json())
+	// 		.then(data => {
+	// 			console.log(data)
+	// 		})
+	// }, [])
+
+	useHotkeys('return', () => {}, { enableOnTags: ['INPUT', 'TEXTAREA'], enableOnFormTags: true })
 	useHotkeys(
 		'esc',
 		() => {
@@ -41,25 +56,9 @@ export const SearchBar = () => {
 		{ enableOnTags: ['INPUT', 'TEXTAREA'], enableOnFormTags: true }
 	)
 
-	const router = useRouter()
-	const pathname = usePathname()
-	const searchParams = useSearchParams()
-
 	useEffect(() => {
-		if (appState.searchTerm.length > 1) router.push(pathname + '?' + createQueryString('sort', appState.searchTerm))
-	}, [appState.searchTerm])
-
-	// Get a new searchParams string by merging the current
-	// searchParams with a provided key/value pair
-	const createQueryString = useCallback(
-		(name, value) => {
-			const params = new URLSearchParams(searchParams.toString())
-			params.set(name, value)
-
-			return params.toString()
-		},
-		[searchParams]
-	)
+		setSearchTerm('')
+	}, [setSearchTerm])
 
 	return (
 		<>
@@ -83,16 +82,16 @@ export const SearchBar = () => {
 						onFocus={() => {
 							setFocused(true)
 						}}
-						value={appState.searchTerm}
+						value={searchTerm}
 						onChange={e => {
-							updateAppState('searchTerm', e.target.value)
-							// router.push(pathname + '?' + createQueryString('sort', e.target.value), undefined, { shallow: true })
+							setSearchTerm(e.target.value)
 							track({ action: 'keydown', event: e, component: 'SearchBar', properties: { searchTerm: e.target.value } })
 						}}
 					/>
 				</div>
 				<div className='flex right items-center px-4'>
-					<div className='flex flex-shrink-0 p-2 bg-slate-100 rounded-lg mr-4'>⌘ K</div>
+					{!focused && <div className='flex flex-shrink-0 p-2 bg-gray-100 rounded-lg mr-4'>⌘ K</div>}
+					{focused && <div className='flex flex-shrink-0 p-2 bg-gray-100 rounded-lg mr-4'>↵</div>}
 					<div className='info 4'>
 						<Icons.info className={'w-4 h-4'} />
 					</div>
@@ -100,18 +99,14 @@ export const SearchBar = () => {
 			</div>
 			<div className={`searchbar-results relative z-[99] -top-1 w-full bg-white h-24 border border-gray-300  rounded-b-xl ${focused ? 'active' : ''}`}>
 				<div className='inner p-4 pt-6'>
-					{searchResults.length === 0 ? <div className='mb-6 pb-6 text-slate-600 animate-pulse text-sm border-b'>Keep Typing...</div> : <></>}
+					{searchResults.length === 0 ? <div className='mb-6 pb-6 text-slate-600 animate-pulse text-sm border-b'>↵ Search for {searchTerm}</div> : <></>}
 					{[{ displayName: 'Recent Searches' }, { displayName: 'Recently Viewed' }, { displayName: 'Suggested', entries: suggestedSearches }].map((item, index) => (
 						<div key={index} className='item'>
 							<div className='title uppercase text-xs text-slate-500'>{item.displayName}</div>
 							<div className='entries h-12'>
 								{item.entries &&
 									item.entries.map((entry, index) => {
-										return (
-											<div key={index} className='entry my-4 px-2'>
-												<div className='title'>{entry}</div>
-											</div>
-										)
+										return <SearchEntry key={index} entry={entry} index={index} />
 									})}
 							</div>
 							<div className='item'></div>

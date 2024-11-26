@@ -5,13 +5,15 @@ export const fetchData = async props => {
 	const { endpoint, properties } = props
 	let response
 	// console.log(properties)
-	let apiAvailable = true
+	let apiAvailable = false
 
 	if (apiAvailable) {
 		try {
 			console.log('>> Fetch API')
 			console.log(`${process.env.NEXT_PUBLIC_API_URL}${API_ENDPOINTS[endpoint](properties)}`)
 			response = await fetch(process.env.NEXT_PUBLIC_API_URL + API_ENDPOINTS[endpoint](properties))
+			return response.json()
+			console.log(response)
 		} catch (e) {
 			console.log('error')
 			console.log(e)
@@ -19,5 +21,5 @@ export const fetchData = async props => {
 	} else {
 		return mockData[endpoint]
 	}
-	return response.json()
+	return response.json() || response
 }
